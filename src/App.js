@@ -1,23 +1,43 @@
 import React from "react";
 import "./App.css";
 
-const todos = ["Homework", "Clean Up", "Wash dishes"];
-
 class Welcome extends React.Component {
   render() {
     return <h1>Hello, {this.props.name}</h1>;
   }
 }
 
-function TodoListFn(props) {
-  return (
-    <ul className="todo-list">
-      {/* <TodoElementsFn todos={todos} /> */}
-      {props.todos.map((todo, index) => (
-        <TodoElementFn key={index} todo={todo} />
-      ))}
-    </ul>
-  );
+class TodoList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { todos: ["Homework", "Clean Up", "Wash dishes"] };
+  }
+
+  componentDidMount() {
+    setTimeout(() => this.addMore(), 1000);
+    setTimeout(() => this.addMore(), 2000);
+    setTimeout(() => this.addMore(), 3000);
+  }
+
+  addMore() {
+    this.setState(prevState => ({
+      todos: [...prevState.todos, "more"]
+    }));
+    console.log(`pushed`);
+  }
+
+  componentWillUnmount() {}
+
+  render() {
+    return (
+      <ul className="todo-list">
+        {/* <TodoElementsFn todos={todos} /> */}
+        {this.state.todos.map((todo, index) => (
+          <TodoElementFn key={index} todo={todo} />
+        ))}
+      </ul>
+    );
+  }
 }
 
 function TodoElementFn(props) {
@@ -29,14 +49,9 @@ function App() {
     <div className="App">
       <Welcome name="react-kata!"></Welcome>
       <h1>ToDos:</h1>
-      <TodoListFn todos={todos} />
+      <TodoList />
     </div>
   );
 }
-
-setInterval(() => {
-  todos.push("more");
-  console.log(`pushed`);
-}, 1000);
 
 export default App;
