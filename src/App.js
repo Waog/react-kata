@@ -10,38 +10,42 @@ class Welcome extends React.Component {
 class TodoList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { todos: ["Homework", "Clean Up", "Wash dishes"] };
+    this.state = {
+      todos: [
+        { id: 0, title: "Homework" },
+        { id: 1, title: "Clean Up" }
+      ]
+    };
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  componentDidMount() {
-    setTimeout(() => this.addMore(), 1000);
-    setTimeout(() => this.addMore(), 2000);
-    setTimeout(() => this.addMore(), 3000);
+  handleClick() {
+    this.addMore();
   }
 
   addMore() {
     this.setState(prevState => ({
-      todos: [...prevState.todos, "more"]
+      todos: [...prevState.todos, { id: prevState.todos.length, title: "more" }]
     }));
     console.log(`pushed`);
   }
 
-  componentWillUnmount() {}
-
   render() {
     return (
-      <ul className="todo-list">
-        {/* <TodoElementsFn todos={todos} /> */}
-        {this.state.todos.map((todo, index) => (
-          <TodoElementFn key={index} todo={todo} />
-        ))}
-      </ul>
+      <div className="todo-list">
+        <ul>
+          {this.state.todos.map(todo => (
+            <TodoElementFn key={todo.id} title={todo.title} />
+          ))}
+        </ul>
+        <button onClick={this.handleClick}>Add more</button>
+      </div>
     );
   }
 }
 
 function TodoElementFn(props) {
-  return <li className="todo-item">{props.todo}</li>;
+  return <li className="todo-item">{props.title}</li>;
 }
 
 function App() {
