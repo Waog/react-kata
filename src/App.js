@@ -11,21 +11,31 @@ class TodoList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      newTodoInput: "",
       todos: [
         { id: 0, title: "Homework" },
         { id: 1, title: "Clean Up" }
       ]
     };
     this.handleClick = this.handleClick.bind(this);
+    this.handleNewTodoChange = this.handleNewTodoChange.bind(this);
   }
 
   handleClick() {
     this.addMore();
   }
 
+  handleNewTodoChange(event) {
+    this.setState({ newTodoInput: event.target.value });
+  }
+
   addMore() {
     this.setState(prevState => ({
-      todos: [...prevState.todos, { id: prevState.todos.length, title: "more" }]
+      todos: [
+        ...prevState.todos,
+        { id: prevState.todos.length, title: this.state.newTodoInput }
+      ],
+      newTodoInput: ""
     }));
     console.log(`pushed`);
   }
@@ -38,6 +48,11 @@ class TodoList extends React.Component {
             <TodoElementFn key={todo.id} title={todo.title} />
           ))}
         </ul>
+        <input
+          type="text"
+          value={this.state.newTodoInput}
+          onChange={this.handleNewTodoChange}
+        />
         <button onClick={this.handleClick}>Add more</button>
       </div>
     );
