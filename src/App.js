@@ -21,7 +21,8 @@ class TodoList extends React.Component {
     this.handleNewTodoChange = this.handleNewTodoChange.bind(this);
   }
 
-  handleClick() {
+  handleClick(event) {
+    event.preventDefault();
     this.addMore();
   }
 
@@ -48,12 +49,17 @@ class TodoList extends React.Component {
             <TodoElementFn key={todo.id} title={todo.title} />
           ))}
         </ul>
-        <input
-          type="text"
-          value={this.state.newTodoInput}
-          onChange={this.handleNewTodoChange}
-        />
-        <button onClick={this.handleClick}>Add more</button>
+        <form className="new-todo">
+          <input
+            className="new-todo"
+            type="text"
+            value={this.state.newTodoInput}
+            onChange={this.handleNewTodoChange}
+          />
+          <button className="new-todo" type="submit" onClick={this.handleClick}>
+            Add
+          </button>
+        </form>
       </div>
     );
   }

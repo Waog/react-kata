@@ -10,7 +10,9 @@
   padding: 5%;
 }
 
-.todo-item {
+.todo-item,
+input.new-todo,
+button.new-todo {
   padding: 2%;
   margin: 2%;
   background-color: rgb(255, 179, 149);
