@@ -1,6 +1,6 @@
 import React from "react";
 import TodoAdder from "./TodoAdder";
-import TodoElementFn from "./TodoElementFn";
+import TodoItem from "./TodoItem";
 import "./TodoList.css";
 
 export default class TodoList extends React.Component {
@@ -30,7 +30,7 @@ export default class TodoList extends React.Component {
       <div className="todo-list">
         <ul>
           {this.state.todos.map(todo => (
-            <TodoElementFn key={todo.id} title={todo.title} />
+            <TodoItem key={todo.id} title={todo.title} />
           ))}
         </ul>
         <TodoAdder onAdd={this.handleAdd} />
