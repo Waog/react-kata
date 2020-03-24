@@ -1,0 +1,8 @@
+button.todo-content {
+  float: right;
+  margin: 0;
+}
+
+li.todo-item {
+  overflow: auto;
+}

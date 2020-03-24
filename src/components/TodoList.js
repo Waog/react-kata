@@ -25,12 +25,22 @@ export default class TodoList extends React.Component {
     }));
   }
 
+  remove(id) {
+    this.setState(prevState => ({
+      todos: prevState.todos.filter(todo => todo.id !== id)
+    }));
+  }
+
+  onDelete = id => {
+    this.remove(id);
+  };
+
   render() {
     return (
       <div className="todo-list">
         <ul>
           {this.state.todos.map(todo => (
-            <TodoItem key={todo.id} title={todo.title} />
+            <TodoItem key={todo.id} todo={todo} onDelete={this.onDelete} />
           ))}
         </ul>
         <TodoAdder onAdd={this.handleAdd} />
