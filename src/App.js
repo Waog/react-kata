@@ -1,6 +1,6 @@
 import React from "react";
+import { v4 as uuidv4 } from "uuid";
 import "./App.css";
-
 class Welcome extends React.Component {
   render() {
     return <h1>Hello, {this.props.name}</h1>;
@@ -11,34 +11,22 @@ class TodoList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      newTodoInput: "",
       todos: [
         { id: 0, title: "Homework" },
         { id: 1, title: "Clean Up" }
       ]
     };
-    this.handleClick = this.handleClick.bind(this);
-    this.handleNewTodoChange = this.handleNewTodoChange.bind(this);
+    this.handleAdd = this.handleAdd.bind(this);
   }
 
-  handleClick(event) {
-    event.preventDefault();
-    this.addMore();
+  handleAdd(newTodo) {
+    this.add(newTodo);
   }
 
-  handleNewTodoChange(event) {
-    this.setState({ newTodoInput: event.target.value });
-  }
-
-  addMore() {
+  add(newTodo) {
     this.setState(prevState => ({
-      todos: [
-        ...prevState.todos,
-        { id: prevState.todos.length, title: this.state.newTodoInput }
-      ],
-      newTodoInput: ""
+      todos: [...prevState.todos, newTodo]
     }));
-    console.log(`pushed`);
   }
 
   render() {
@@ -49,18 +37,53 @@ class TodoList extends React.Component {
             <TodoElementFn key={todo.id} title={todo.title} />
           ))}
         </ul>
-        <form className="new-todo">
-          <input
-            className="new-todo"
-            type="text"
-            value={this.state.newTodoInput}
-            onChange={this.handleNewTodoChange}
-          />
-          <button className="new-todo" type="submit" onClick={this.handleClick}>
-            Add
-          </button>
-        </form>
+        <TodoAdder onAdd={this.handleAdd} />
       </div>
+    );
+  }
+}
+
+class TodoAdder extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      newTodoInput: ""
+    };
+    this.handleClick = this.handleClick.bind(this);
+    this.handleNewTodoChange = this.handleNewTodoChange.bind(this);
+  }
+
+  handleClick(event) {
+    event.preventDefault();
+    this.emitNewTodo();
+    this.setState({ newTodoInput: "" });
+  }
+
+  handleNewTodoChange(event) {
+    this.setState({ newTodoInput: event.target.value });
+  }
+
+  emitNewTodo() {
+    const newTodo = {
+      id: uuidv4(),
+      title: this.state.newTodoInput
+    };
+    this.props.onAdd(newTodo);
+  }
+
+  render() {
+    return (
+      <form className="new-todo">
+        <input
+          className="new-todo"
+          type="text"
+          value={this.state.newTodoInput}
+          onChange={this.handleNewTodoChange}
+        />
+        <button className="new-todo" type="submit" onClick={this.handleClick}>
+          Add
+        </button>
+      </form>
     );
   }
 }
