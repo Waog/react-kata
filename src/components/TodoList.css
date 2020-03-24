@@ -1,0 +1,15 @@
+.todo-list {
+  max-width: 90%;
+  margin: 5% 5%;
+  text-align: left;
+  padding: 5%;
+}
+
+.todo-item,
+input.new-todo,
+button.new-todo {
+  padding: 2%;
+  margin: 2%;
+  background-color: rgb(255, 179, 149);
+  border: 1px solid rgb(219, 136, 104);
+}
