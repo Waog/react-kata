@@ -35,12 +35,30 @@ export default class TodoList extends React.Component {
     this.remove(id);
   };
 
+  onItemChange = changedTodo => {
+    console.log("item changed:", changedTodo);
+    this.setState(prevState => {
+      const affectedTodo = prevState.todos.find(
+        todo => todo.id === changedTodo.id
+      );
+      Object.assign(affectedTodo, changedTodo);
+      return {
+        todos: prevState.todos
+      };
+    });
+  };
+
   render() {
     return (
       <div className="todo-list">
         <ul>
           {this.state.todos.map(todo => (
-            <TodoItem key={todo.id} todo={todo} onDelete={this.onDelete} />
+            <TodoItem
+              key={todo.id}
+              todo={todo}
+              onDelete={this.onDelete}
+              onChange={this.onItemChange}
+            />
           ))}
         </ul>
         <TodoAdder onAdd={this.handleAdd} />
