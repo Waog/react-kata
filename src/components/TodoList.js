@@ -36,7 +36,6 @@ export default class TodoList extends React.Component {
   };
 
   onItemChange = changedTodo => {
-    console.log("item changed:", changedTodo);
     this.setState(prevState => {
       const affectedTodo = prevState.todos.find(
         todo => todo.id === changedTodo.id
