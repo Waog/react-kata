@@ -1,5 +1,6 @@
 import React from "react";
 import TodoAdder from "./TodoAdder";
+import TodoElementFn from "./TodoElementFn";
 import "./TodoList.css";
 
 export default class TodoList extends React.Component {
@@ -36,8 +37,4 @@ export default class TodoList extends React.Component {
       </div>
     );
   }
-}
-
-function TodoElementFn(props) {
-  return <li className="todo-item">{props.title}</li>;
 }
