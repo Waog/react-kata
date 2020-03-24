@@ -1,11 +1,7 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import "./App.css";
-class Welcome extends React.Component {
-  render() {
-    return <h1>Hello, {this.props.name}</h1>;
-  }
-}
+import Welcome from "./components/Welcome";
 
 class TodoList extends React.Component {
   constructor(props) {
